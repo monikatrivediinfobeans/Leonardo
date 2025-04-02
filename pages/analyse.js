@@ -5,16 +5,14 @@ class AnalysePage {
     // Selector for the Analyse logo
     this.analyseLogo = "//div[@class='inline-block text-headline-medium float-left']";
 
-    // Use a more specific selector for the map iframe if possible.
-    // For example: page.frameLocator('iframe[src*="maps.google.com"]');
-    // this.iframeLocator = page.frameLocator('iframe');
-
-    // Use XPath for the map container element within the iframe
+    // Use XPath for the map container element 
     this.mapElement = this.page.locator("(//*[text()='To navigate, press the arrow keys.']//parent::div//parent::div//parent::div)[1]");
 
-    // Use XPath to select the first marker (adjust the XPath if needed)
-    // this.marker = this.iframeLocator.locator('xpath=(//div[@aria-label="Marker"])[1]');
-    this.filterbar = "//div[@class ='pl-5']"
+    // Define the filter bar selector – adjust the XPath as needed.
+    this.filterbar = "//span[text() = 'Filter']";
+
+    // Define the indicators– adjust the XPath as needed.
+    this.indicators =  "//div[@class = 'flex flex-col mt-2']";
   }
 
   async isAnalyseLogoVisible() {
@@ -38,24 +36,25 @@ class AnalysePage {
 
   //*[text()='To navigate, press the arrow keys.']//parent::div//parent::div//parent::div)[1]
 
-    async isMapVisible() {
-      // Wait for the map element inside the iframe to be visible
-      await this.mapElement.waitFor({ state: 'visible', timeout: 60000 });
-      return await this.mapElement.isVisible();
-    }
-//   async clickFirstMarker() {
-//     if (await this.isMapVisible()) {
-//       console.log("Map is visible. Proceeding with interactions.");
-//       if (await this.marker.isVisible()) {
-//         await this.marker.click();
-//         console.log("Clicked on the marker.");
-//       } else {
-//         console.log("No visible markers found.");
-//       }
-//     } else {
-//       console.log("Map is not visible.");
-//     }
-//   }
+  async isMapVisible() {
+    // Wait for the map element inside the iframe to be visible
+    await this.mapElement.waitFor({ state: 'visible', timeout: 60000 });
+    return await this.mapElement.isVisible();
+  }
+
+  async isFilterbarVisible() {
+    // Convert to a locator each time you use it
+    await this.mapElement.waitFor({ state: 'visible', timeout: 60000 });    
+    return await this.page.locator(this.filterbar).isVisible();
+  }    
+
+   
+  async isIndicatorsVisible() {
+    // Convert to a locator each time you use it
+    await this.mapElement.waitFor({ state: 'visible', timeout: 60000 });    
+    return await this.page.locator(this.indicators).isVisible();
+  }
 }
+
 
 module.exports = AnalysePage;

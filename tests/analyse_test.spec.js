@@ -35,10 +35,25 @@ test.describe('Analyse Tests', () => {
     await analysePage.scrollToTop();
   });
 
-  test.only('Verify that the map is visible on the Analyse screen', async ({ page }) => {
+  test('Verify that the map is visible on the Analyse screen', async ({ page }) => {
     const analysePage = new AnalysePage(page);
     const isVisible = await analysePage.isMapVisible();
-    console.log('Analyse logo visible:', isVisible);
+    console.log('Map is visible:', isVisible);
+    expect(isVisible).toBe(true);
+  });
+
+
+  test('Verify that the filter bar is displayed', async ({ page }) => {
+    const analysePage = new AnalysePage(page);
+    const isVisible = await analysePage.isFilterbarVisible();
+    console.log('Filter bar is visible:', isVisible);
+    expect(isVisible).toBe(true);
+  });
+
+  test.only('Verify that indicators are displayed correctly', async ({ page }) => {
+    const analysePage = new AnalysePage(page);
+    const isVisible = await analysePage.isIndicatorsVisible();
+    console.log('Indicators are displayed correctly:', isVisible);
     expect(isVisible).toBe(true);
   });
 });
