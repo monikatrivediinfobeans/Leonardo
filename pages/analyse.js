@@ -13,6 +13,9 @@ class AnalysePage {
 
     // Define the indicators– adjust the XPath as needed.
     this.indicators =  "//div[@class = 'flex flex-col mt-2']";
+    
+    // Define the export– adjust the XPath as needed.
+    this.download_export = "//button[text()='Download report']";
   }
 
   async isAnalyseLogoVisible() {
@@ -34,8 +37,6 @@ class AnalysePage {
     await this.page.waitForLoadState('networkidle');
   }
 
-  //*[text()='To navigate, press the arrow keys.']//parent::div//parent::div//parent::div)[1]
-
   async isMapVisible() {
     // Wait for the map element inside the iframe to be visible
     await this.mapElement.waitFor({ state: 'visible', timeout: 60000 });
@@ -54,6 +55,13 @@ class AnalysePage {
     await this.mapElement.waitFor({ state: 'visible', timeout: 60000 });    
     return await this.page.locator(this.indicators).isVisible();
   }
+
+  async isDownloadExportVisible() {
+    // Convert to a locator each time you use it
+    await this.mapElement.waitFor({ state: 'visible', timeout: 60000 });    
+    return await this.page.locator(this.download_export).isVisible();
+  }
+
 }
 
 

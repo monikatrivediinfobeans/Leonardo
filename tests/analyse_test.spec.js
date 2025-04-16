@@ -50,12 +50,20 @@ test.describe('Analyse Tests', () => {
     expect(isVisible).toBe(true);
   });
 
-  test.only('Verify that indicators are displayed correctly', async ({ page }) => {
+  test('Verify that indicators are displayed correctly', async ({ page }) => {
     const analysePage = new AnalysePage(page);
     const isVisible = await analysePage.isIndicatorsVisible();
     console.log('Indicators are displayed correctly:', isVisible);
     expect(isVisible).toBe(true);
   });
+
+  test('Verify download report', async ({ page }) => {
+    const analysePage = new AnalysePage(page);
+    const isVisible = await analysePage.isDownloadExportVisible();
+    console.log('Download Export button displayed correctly:', isVisible);
+    expect(isVisible).toBe(true);
+  });
+  
 });
 
 
